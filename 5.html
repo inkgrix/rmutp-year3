@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จ้างป้า - UI Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #1a1a1a;
+        }
+        /* Custom Design System Colors */
+        .bg-primary { background-color: #6EBB9B; }
+        .text-primary { color: #6EBB9B; }
+        .border-primary { border-color: #6EBB9B; }
+        .bg-secondary { background-color: #DFF3E8; }
+        .text-secondary { color: #DFF3E8; }
+        .bg-cream { background-color: #F6EDE3; }
+        .text-cream { color: #F6EDE3; }
+        .bg-app-bg { background-color: #FAFAFA; }
+        .text-app-text { color: #2B2B2B; }
+        .bg-app-error { background-color: #E24C4B; }
+        .text-app-error { color: #E24C4B; }
+        
+        .screen-container {
+            width: 390px;
+            height: 844px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-radius: 2.5rem; /* A bit more rounded for a softer look */
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .screen-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        .screen-content::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, and Opera */
+        }
+    </style>
+</head>
+<body class="p-8 md:p-12">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-white">จ้างป้า</h1>
+            <p class="text-xl text-gray-300 mt-2">UI Board - House Cleaning App</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16 justify-items-center" id="ui-board">
+            <!-- Screens will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        const screens = [
+            // 1. Home (Empty State)
+            {
+                content: `
+                    <div class="screen-content pt-10 p-6 pb-24 space-y-6">
+                        <h1 class="text-3xl font-bold">สวัสดี, Ink</h1>
+                        
+                        <div class="bg-white p-6 rounded-2xl shadow-md text-center space-y-4">
+                            <div class="w-16 h-16 bg-secondary rounded-full mx-auto flex items-center justify-center">
+                                <i data-lucide="calendar-x-2" class="w-8 h-8 text-primary"></i>
+                            </div>
+                            <h2 class="text-xl font-semibold">ยังไม่มีงานจอง</h2>
+                            <p class="text-gray-500">จองงานทำความสะอาดครั้งแรก<br>ของคุณได้เลยง่ายๆ</p>
+                            <div class="flex flex-col gap-3 pt-2">
+                                <button class="w-full bg-primary text-white font-semibold py-3 rounded-xl">จองทำความสะอาด</button>
+                                <button class="w-full bg-secondary text-primary font-semibold py-3 rounded-xl">ดูโปรโมชัน</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">วิธีการทำงาน</h3>
+                            <div class="flex gap-3 text-center">
+                                <div class="flex-1 bg-white p-3 rounded-2xl shadow-sm">
+                                    <i data-lucide="mouse-pointer-square" class="mx-auto text-primary mb-1"></i>
+                                    <p class="text-xs font-medium">เลือกบริการ</p>
+                                </div>
+                                <div class="flex-1 bg-white p-3 rounded-2xl shadow-sm">
+                                    <i data-lucide="calendar-clock" class="mx-auto text-primary mb-1"></i>
+                                    <p class="text-xs font-medium">เลือกวันเวลา</p>
+                                </div>
+                                <div class="flex-1 bg-white p-3 rounded-2xl shadow-sm">
+                                    <i data-lucide="credit-card" class="mx-auto text-primary mb-1"></i>
+                                    <p class="text-xs font-medium">ชำระเงิน</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">แนะนำสำหรับคุณ</h3>
+                            <div class="bg-cream p-4 rounded-2xl flex items-center gap-4 shadow-sm">
+                                <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center"><i data-lucide="sparkles" class="w-8 h-8 text-primary"></i></div>
+                                <div>
+                                    <p class="font-bold">แพ็กเกจยอดนิยม</p>
+                                    <p class="text-sm text-gray-600">ทำความสะอาดคอนโด 1 ห้องนอน</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">บริการด่วน</h3>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="bg-white p-4 rounded-2xl text-center shadow-sm">
+                                    <i data-lucide="building" class="mx-auto text-primary mb-1"></i>
+                                    <p class="font-medium text-sm">คอนโด</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl text-center shadow-sm">
+                                    <i data-lucide="home" class="mx-auto text-primary mb-1"></i>
+                                    <p class="font-medium text-sm">บ้าน</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl text-center shadow-sm">
+                                    <i data-lucide="calendar-days" class="mx-auto text-primary mb-1"></i>
+                                    <p class="font-medium text-sm">รายเดือน</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tab Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 h-20 pt-2 pb-4">
+                        <div class="flex justify-around items-center h-full">
+                            <div class="text-center text-primary"><i data-lucide="home" class="mx-auto"></i><span class="text-xs font-bold">หน้าหลัก</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="calendar" class="mx-auto"></i><span class="text-xs">รายการจอง</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="message-square" class="mx-auto"></i><span class="text-xs">ข้อความ</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="wallet" class="mx-auto"></i><span class="text-xs">กระเป๋าเงิน</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="user" class="mx-auto"></i><span class="text-xs">โปรไฟล์</span></div>
+                        </div>
+                    </div>
+                `
+            },
+            // 2. Home (Upcoming Job)
+            {
+                content: `
+                    <div class="screen-content pt-10 p-6 pb-24 space-y-6">
+                        <h1 class="text-3xl font-bold">สวัสดี, Ink</h1>
+                        
+                        <div class="bg-white p-5 rounded-2xl shadow-md space-y-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h2 class="text-lg font-semibold">งานที่จะถึง</h2>
+                                    <p class="text-sm text-gray-500">วันนี้, 14:00 น.</p>
+                                </div>
+                                <span class="text-xs font-semibold bg-secondary text-primary py-1 px-3 rounded-full">กำลังมา</span>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="map-pin" class="w-4 h-4 text-gray-400"></i>
+                                    <p>ไอดีโอ คอนโด, สุขุมวิท 93</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="user-check" class="w-4 h-4 text-gray-400"></i>
+                                    <p>พี่นิดา</p>
+                                </div>
+                            </div>
+                            <button class="w-full bg-primary text-white font-semibold py-3 rounded-xl mt-2">ติดตามงาน</button>
+                        </div>
+                        
+                        <div class="bg-cream p-4 rounded-2xl flex items-center justify-between shadow-sm">
+                             <div>
+                                <p class="font-bold text-primary">ลด 15% สำหรับครั้งถัดไป!</p>
+                                <p class="text-sm text-gray-600">ใช้โค้ด: NEXTCLEAN</p>
+                            </div>
+                            <i data-lucide="percent-circle" class="w-10 h-10 text-primary"></i>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">นัดอีกครั้ง</h3>
+                            <div class="bg-white p-4 rounded-2xl flex items-center justify-between shadow-sm">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
+                                    <div>
+                                        <p class="font-semibold">พี่นิดา</p>
+                                        <p class="text-sm text-gray-500">ทำความสะอาดคอนโด</p>
+                                    </div>
+                                </div>
+                                <button class="bg-secondary text-primary font-semibold text-sm py-2 px-4 rounded-lg">จองอีกครั้ง</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">บริการด่วน</h3>
+                            <div class="grid grid-cols-3 gap-3">
+                                <div class="bg-white p-4 rounded-2xl text-center shadow-sm">
+                                    <i data-lucide="building" class="mx-auto text-primary mb-1"></i>
+                                    <p class="font-medium text-sm">คอนโด</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl text-center shadow-sm">
+                                    <i data-lucide="home" class="mx-auto text-primary mb-1"></i>
+                                    <p class="font-medium text-sm">บ้าน</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl text-center shadow-sm">
+                                    <i data-lucide="calendar-days" class="mx-auto text-primary mb-1"></i>
+                                    <p class="font-medium text-sm">รายเดือน</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tab Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 h-20 pt-2 pb-4">
+                        <div class="flex justify-around items-center h-full">
+                            <div class="text-center text-primary"><i data-lucide="home" class="mx-auto"></i><span class="text-xs font-bold">หน้าหลัก</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="calendar" class="mx-auto"></i><span class="text-xs">รายการจอง</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="message-square" class="mx-auto"></i><span class="text-xs">ข้อความ</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="wallet" class="mx-auto"></i><span class="text-xs">กระเป๋าเงิน</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="user" class="mx-auto"></i><span class="text-xs">โปรไฟล์</span></div>
+                        </div>
+                    </div>
+                `
+            },
+            // 3. Service Picker
+            {
+                content: `
+                    <header class="p-4 flex items-center border-b h-[68px]">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                        <h2 class="text-xl font-semibold mx-auto">เลือกบริการ</h2>
+                        <div class="w-6"></div>
+                    </header>
+                    <div class="screen-content p-6 pb-28 space-y-6">
+                        <div class="space-y-4">
+                            <div class="bg-white p-5 rounded-2xl shadow-md border-2 border-primary">
+                                <h3 class="font-bold text-lg">ทำความสะอาดรายครั้ง</h3>
+                                <p class="text-gray-500 text-sm">เหมาะสำหรับคอนโดและบ้านทั่วไป</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-2xl shadow-md border-2 border-transparent">
+                                <h3 class="font-bold text-lg">ทำความสะอาดรายชั่วโมง</h3>
+                                <p class="text-gray-500 text-sm">เลือกจำนวนชั่วโมงได้ตามต้องการ</p>
+                            </div>
+                            <div class="bg-white p-5 rounded-2xl shadow-md border-2 border-transparent">
+                                <h3 class="font-bold text-lg">แพ็กเกจรายเดือน</h3>
+                                <p class="text-gray-500 text-sm">คุ้มค่ากว่าสำหรับลูกค้าประจำ</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-4">บริการเสริม (เลือกได้)</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm">
+                                    <div>
+                                        <p class="font-semibold">ล้างห้องน้ำเพิ่ม</p>
+                                        <p class="text-sm text-gray-500">+ ฿200</p>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <button class="w-8 h-8 rounded-full bg-gray-200 text-gray-600">-</button>
+                                        <span class="font-bold w-4 text-center">0</span>
+                                        <button class="w-8 h-8 rounded-full bg-primary text-white">+</button>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm">
+                                    <div>
+                                        <p class="font-semibold">เช็ดกระจก/หน้าต่าง</p>
+                                        <p class="text-sm text-gray-500">+ ฿150</p>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <button class="w-8 h-8 rounded-full bg-gray-200 text-gray-600">-</button>
+                                        <span class="font-bold w-4 text-center">0</span>
+                                        <button class="w-8 h-8 rounded-full bg-primary text-white">+</button>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm">
+                                    <div>
+                                        <p class="font-semibold">รีดผ้า</p>
+                                        <p class="text-sm text-gray-500">+ ฿250 / 10 ชิ้น</p>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <button class="w-8 h-8 rounded-full bg-gray-200 text-gray-600">-</button>
+                                        <span class="font-bold w-4 text-center">0</span>
+                                        <button class="w-8 h-8 rounded-full bg-primary text-white">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sticky Summary Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t p-4 pb-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-gray-500">ราคาประมาณ</p>
+                                <p class="font-bold text-lg">ประมาณ 3 ชม. • ฿1,200</p>
+                            </div>
+                            <button class="bg-primary text-white font-semibold py-3 px-8 rounded-xl">ต่อไป</button>
+                        </div>
+                    </div>
+                `
+            },
+            // 4. Property Details
+            {
+                content: `
+                    <header class="p-4 flex items-center border-b h-[68px]">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                        <h2 class="text-xl font-semibold mx-auto">รายละเอียดสถานที่</h2>
+                        <div class="w-6"></div>
+                    </header>
+                    <div class="screen-content p-6 pb-28 space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">ขนาดพื้นที่</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="text-center bg-secondary text-primary p-4 rounded-2xl border-2 border-primary">
+                                    <p class="font-semibold">1 ห้องนอน</p>
+                                </div>
+                                <div class="text-center bg-white p-4 rounded-2xl border-2">
+                                    <p class="font-semibold">2 ห้องนอน</p>
+                                </div>
+                                <div class="text-center bg-white p-4 rounded-2xl border-2">
+                                    <p class="font-semibold">3 ห้องนอน</p>
+                                </div>
+                                <div class="text-center bg-white p-4 rounded-2xl border-2">
+                                    <p class="font-semibold">บ้าน</p>
+                                </div>
+                            </div>
+                            <input type="text" placeholder="หรือระบุเป็น ตร.ม." class="mt-4 w-full p-3 bg-white border rounded-xl text-center">
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">ระดับความสกปรก</h3>
+                            <div class="space-y-3">
+                                <div class="bg-white p-4 rounded-2xl border-2 flex gap-4 items-center">
+                                    <input type="radio" name="dirt" class="form-radio h-5 w-5 text-primary focus:ring-primary"/>
+                                    <div>
+                                        <p class="font-semibold">เบา</p>
+                                        <p class="text-xs text-gray-500">ทำความสะอาดประจำ, มีฝุ่นเล็กน้อย</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl border-2 border-primary flex gap-4 items-center">
+                                    <input type="radio" name="dirt" checked class="form-radio h-5 w-5 text-primary focus:ring-primary"/>
+                                    <div>
+                                        <p class="font-semibold">ปานกลาง</p>
+                                        <p class="text-xs text-gray-500">ไม่ได้ทำความสะอาด 1-2 สัปดาห์</p>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl border-2 flex gap-4 items-center">
+                                    <input type="radio" name="dirt" class="form-radio h-5 w-5 text-primary focus:ring-primary"/>
+                                    <div>
+                                        <p class="font-semibold">หนัก</p>
+                                        <p class="text-xs text-gray-500">มีคราบฝังแน่น, ไม่ได้ทำความสะอาดนาน</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">รูปภาพ (ถ้ามี)</h3>
+                            <button class="w-full flex items-center justify-center gap-2 p-4 bg-white border-2 border-dashed rounded-2xl text-gray-500">
+                                <i data-lucide="camera"></i>
+                                <span>แนบรูปภาพ</span>
+                            </button>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">โน้ตถึงแม่บ้าน</h3>
+                            <textarea placeholder="เช่น: มีสัตว์เลี้ยง, ช่วยเน้นห้องครัวเป็นพิเศษ" class="w-full p-4 bg-white border rounded-2xl h-24"></textarea>
+                        </div>
+                    </div>
+                    <!-- Sticky Summary Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t p-4 pb-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-gray-500">ราคาประมาณ</p>
+                                <p class="font-bold text-lg">ประมาณ 3 ชม. • ฿1,200</p>
+                            </div>
+                            <button class="bg-primary text-white font-semibold py-3 px-8 rounded-xl">ต่อไป</button>
+                        </div>
+                    </div>
+                `
+            },
+            // 5. Schedule
+            {
+                content: `
+                    <header class="p-4 flex items-center border-b h-[68px]">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                        <h2 class="text-xl font-semibold mx-auto">เลือกวัน-เวลา</h2>
+                        <div class="w-6"></div>
+                    </header>
+                    <div class="screen-content p-6 pb-28">
+                        <div class="flex justify-between items-center mb-4">
+                            <i data-lucide="chevron-left" class="w-6 h-6 text-gray-500"></i>
+                            <h3 class="text-lg font-semibold">สิงหาคม 2025</h3>
+                            <i data-lucide="chevron-right" class="w-6 h-6 text-primary"></i>
+                        </div>
+                        <div class="grid grid-cols-7 text-center text-sm text-gray-500 mb-2">
+                            <span>อา</span><span>จ</span><span>อ</span><span>พ</span><span>พฤ</span><span>ศ</span><span>ส</span>
+                        </div>
+                        <div class="grid grid-cols-7 text-center gap-y-2">
+                            ${[...Array(4).keys()].map(i => `<div class="text-gray-300">${28+i}</div>`).join('')}
+                            ${[...Array(31).keys()].map(i => {
+                                const day = i + 1;
+                                if (day === 24) return `<div class="bg-primary text-white rounded-full aspect-square flex items-center justify-center font-bold">24</div>`;
+                                if (day === 27 || day === 28) return `<div class="text-gray-300 relative">${day}<div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-gray-300 rounded-full"></div></div>`;
+                                return `<div class="aspect-square flex items-center justify-center">${day}</div>`;
+                            }).join('')}
+                             ${[...Array(7).keys()].map(i => `<div class="text-gray-300">${1+i}</div>`).join('')}
+                        </div>
+                        <hr class="my-6">
+                        <h3 class="text-lg font-semibold mb-4">เลือกช่วงเวลา</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="text-center bg-white p-4 rounded-2xl border-2">
+                                <p class="font-semibold">เช้า (9:00 - 12:00)</p>
+                            </div>
+                            <div class="text-center bg-secondary text-primary p-4 rounded-2xl border-2 border-primary">
+                                <p class="font-semibold">บ่าย (13:00 - 16:00)</p>
+                            </div>
+                            <div class="text-center bg-white p-4 rounded-2xl border-2">
+                                <p class="font-semibold">เย็น (17:00 - 19:00)</p>
+                            </div>
+                            <div class="text-center bg-gray-100 text-gray-400 p-4 rounded-2xl border-2">
+                                <p class="font-semibold">ช่วงค่ำ (เต็ม)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sticky Summary Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t p-4 pb-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-gray-500">วัน-เวลาที่เลือก</p>
+                                <p class="font-bold text-lg">อา. 24 ส.ค., 13:00-16:00</p>
+                            </div>
+                            <button class="bg-primary text-white font-semibold py-3 px-8 rounded-xl">ต่อไป</button>
+                        </div>
+                    </div>
+                `
+            },
+            // 6. Address & Access
+            {
+                content: `
+                    <header class="p-4 flex items-center border-b h-[68px]">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                        <h2 class="text-xl font-semibold mx-auto">ที่อยู่ & การเข้าถึง</h2>
+                        <div class="w-6"></div>
+                    </header>
+                    <div class="screen-content p-6 pb-28 space-y-6">
+                        <div class="bg-white p-4 rounded-2xl border-2 border-primary flex gap-4 items-start">
+                            <input type="radio" name="address" checked class="form-radio h-5 w-5 text-primary focus:ring-primary mt-1"/>
+                            <div>
+                                <p class="font-bold">บ้าน</p>
+                                <p class="text-sm text-gray-600">123/45 ซ.สุขุมวิท 93 แขวงบางจาก เขตพระโขนง กรุงเทพมหานคร 10260</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border-2 flex gap-4 items-start">
+                            <input type="radio" name="address" class="form-radio h-5 w-5 text-primary focus:ring-primary mt-1"/>
+                            <div>
+                                <p class="font-bold">ที่ทำงาน</p>
+                                <p class="text-sm text-gray-600">ตึก G Tower ชั้น 20, ถ.พระราม 9...</p>
+                            </div>
+                        </div>
+                        <button class="w-full flex items-center justify-center gap-2 p-4 bg-secondary text-primary font-semibold rounded-2xl">
+                            <i data-lucide="plus"></i>
+                            <span>เพิ่มที่อยู่ใหม่</span>
+                        </button>
+                        
+                        <div class="h-40 bg-gray-200 rounded-2xl flex items-center justify-center text-gray-500">
+                            แผนที่ (Map Preview)
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">วิธีเข้าถึงสถานที่</h3>
+                            <textarea placeholder="เช่น: แลกบัตรที่นิติ, ฝากคีย์การ์ดไว้ที่ล็อบบี้, รหัสประตู 1234#" class="w-full p-4 bg-white border rounded-2xl h-24"></textarea>
+                        </div>
+                    </div>
+                    <!-- Sticky Summary Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t p-4 pb-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-gray-500">ราคาประมาณ</p>
+                                <p class="font-bold text-lg">ประมาณ 3 ชม. • ฿1,200</p>
+                            </div>
+                            <button class="bg-primary text-white font-semibold py-3 px-8 rounded-xl">ต่อไป</button>
+                        </div>
+                    </div>
+                `
+            },
+            // 7. Choose Cleaner
+            {
+                content: `
+                    <header class="p-4 flex items-center border-b h-[68px]">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                        <h2 class="text-xl font-semibold mx-auto">เลือกแม่บ้าน</h2>
+                        <div class="w-6"></div>
+                    </header>
+                    <div class="screen-content p-6 pb-28 space-y-4">
+                        <div class="bg-white p-4 rounded-2xl shadow-md flex gap-4 items-center">
+                            <div class="w-20 h-20 bg-gray-200 rounded-full flex-shrink-0"></div>
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-start">
+                                    <h4 class="font-bold text-lg">พี่นิดา</h4>
+                                    <div class="flex items-center gap-1 text-sm"><i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i> 4.9 <span class="text-gray-400">(320)</span></div>
+                                </div>
+                                <p class="text-sm text-gray-500">เขตใกล้เคียง: ลาดพร้าว (3.2 กม.)</p>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="text-xs font-medium bg-secondary text-primary py-1 px-2 rounded-md">ตรวจประวัติแล้ว</span>
+                                </div>
+                                <div class="flex justify-between items-end mt-2">
+                                    <p class="font-semibold text-primary">฿250/ชม.</p>
+                                    <button class="bg-primary text-white font-semibold text-sm py-2 px-6 rounded-lg">เลือก</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-md flex gap-4 items-center">
+                            <div class="w-20 h-20 bg-gray-200 rounded-full flex-shrink-0"></div>
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-start">
+                                    <h4 class="font-bold text-lg">พี่ดาว</h4>
+                                    <div class="flex items-center gap-1 text-sm"><i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i> 4.8 <span class="text-gray-400">(270)</span></div>
+                                </div>
+                                <p class="text-sm text-gray-500">เขตใกล้เคียง: บางกะปิ (4.5 กม.)</p>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="text-xs font-medium bg-secondary text-primary py-1 px-2 rounded-md">มือเบาเป็นพิเศษ</span>
+                                </div>
+                                <div class="flex justify-between items-end mt-2">
+                                    <p class="font-semibold text-primary">฿240/ชม.</p>
+                                    <button class="bg-secondary text-primary font-semibold text-sm py-2 px-6 rounded-lg">เลือก</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-md flex gap-4 items-center">
+                            <div class="w-20 h-20 bg-gray-200 rounded-full flex-shrink-0"></div>
+                            <div class="flex-grow">
+                                <div class="flex justify-between items-start">
+                                    <h4 class="font-bold text-lg">พี่มะปราง</h4>
+                                    <div class="flex items-center gap-1 text-sm"><i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i> 4.7 <span class="text-gray-400">(190)</span></div>
+                                </div>
+                                <p class="text-sm text-gray-500">เขตใกล้เคียง: รัชดา (5.1 กม.)</p>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="text-xs font-medium bg-secondary text-primary py-1 px-2 rounded-md">โปรขัดห้องน้ำ</span>
+                                </div>
+                                <div class="flex justify-between items-end mt-2">
+                                    <p class="font-semibold text-primary">฿230/ชม.</p>
+                                    <button class="bg-secondary text-primary font-semibold text-sm py-2 px-6 rounded-lg">เลือก</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sticky Summary Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t p-4 pb-6">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-gray-500">แม่บ้านที่เลือก</p>
+                                <p class="font-bold text-lg">พี่นิดา • ฿1,250</p>
+                            </div>
+                            <button class="bg-primary text-white font-semibold py-3 px-8 rounded-xl">ต่อไป</button>
+                        </div>
+                    </div>
+                `
+            },
+            // 8. Review & Payment
+            {
+                content: `
+                    <header class="p-4 flex items-center border-b h-[68px]">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                        <h2 class="text-xl font-semibold mx-auto">ตรวจสอบ & ชำระเงิน</h2>
+                        <div class="w-6"></div>
+                    </header>
+                    <div class="screen-content p-6 pb-8 space-y-6">
+                        <div class="bg-white p-5 rounded-2xl shadow-md space-y-4">
+                            <h3 class="font-semibold text-lg">สรุปรายการ</h3>
+                            <div class="space-y-2 text-sm border-b pb-4">
+                                <p><strong>บริการ:</strong> ทำความสะอาดรายครั้ง</p>
+                                <p><strong>วัน-เวลา:</strong> อา. 24 ส.ค., 13:00-16:00</p>
+                                <p><strong>ที่อยู่:</strong> 123/45 ซ.สุขุมวิท 93...</p>
+                                <p><strong>แม่บ้าน:</strong> พี่นิดา</p>
+                            </div>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between"><span>ค่าบริการ (3 ชม.)</span><span>฿750</span></div>
+                                <div class="flex justify-between"><span>ค่าเดินทาง</span><span>฿50</span></div>
+                                <div class="flex justify-between text-green-600"><span>ส่วนลด</span><span>-฿0</span></div>
+                                <hr class="my-2">
+                                <div class="flex justify-between font-bold text-base"><span>รวมทั้งหมด</span><span>฿800</span></div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <input type="text" placeholder="กรอกโค้ดส่วนลด" class="flex-grow p-3 bg-white border rounded-xl">
+                            <button class="bg-secondary text-primary font-semibold px-5 rounded-xl">ใช้</button>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">วิธีชำระเงิน</h3>
+                            <div class="space-y-3">
+                                <div class="bg-white p-4 rounded-2xl border-2 border-primary flex gap-4 items-center">
+                                    <input type="radio" name="payment" checked class="form-radio h-5 w-5 text-primary focus:ring-primary"/>
+                                    <i data-lucide="credit-card" class="text-primary"></i>
+                                    <p class="font-semibold">บัตรเครดิต/เดบิต ...1234</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-2xl border-2 flex gap-4 items-center">
+                                    <input type="radio" name="payment" class="form-radio h-5 w-5 text-primary focus:ring-primary"/>
+                                    <i data-lucide="qr-code" class="text-primary"></i>
+                                    <p class="font-semibold">PromptPay QR</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-3 pt-2">
+                            <input type="checkbox" checked class="form-checkbox h-5 w-5 text-primary focus:ring-primary rounded mt-1"/>
+                            <p class="text-sm text-gray-600">ฉันยอมรับ <a href="#" class="text-primary underline">เงื่อนไขการให้บริการและการยกเลิก</a></p>
+                        </div>
+
+                    </div>
+                    <div class="p-6 pt-0 mt-auto pb-6">
+                        <button class="w-full bg-primary text-white font-bold py-4 rounded-2xl text-lg">ชำระเงิน ฿800</button>
+                    </div>
+                `
+            },
+            // 9. Payment Success
+            {
+                content: `
+                    <div class="flex-grow flex flex-col justify-center items-center text-center p-8 space-y-5">
+                        <div class="w-24 h-24 bg-primary rounded-full flex items-center justify-center">
+                            <i data-lucide="check" class="w-16 h-16 text-white"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold">ชำระเงินสำเร็จ!</h1>
+                        <p class="text-gray-500">การจองของคุณได้รับการยืนยันแล้ว<br>เราได้ส่งรายละเอียดไปที่อีเมลของคุณ</p>
+                        <div class="bg-secondary p-3 rounded-xl">
+                            <p class="text-sm text-primary">หมายเลขการจอง</p>
+                            <p class="font-bold text-lg text-primary tracking-widest">JP-845219</p>
+                        </div>
+                        <div class="pt-8 w-full space-y-3">
+                            <button class="w-full bg-primary text-white font-semibold py-3 rounded-xl">ติดตามงาน</button>
+                            <button class="w-full bg-secondary text-primary font-semibold py-3 rounded-xl">แชร์ใบเสร็จ</button>
+                        </div>
+                    </div>
+                `
+            },
+            // 10. Booking Detail
+            {
+                content: `
+                    <header class="p-4 flex items-center border-b h-[68px]">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                        <h2 class="text-xl font-semibold mx-auto">งาน #JP-845219</h2>
+                        <div class="w-6"></div>
+                    </header>
+                    <div class="screen-content p-6 pb-8 space-y-6">
+                        <!-- Timeline -->
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-4">
+                                <div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center"><i data-lucide="check" class="w-4 h-4 text-white"></i></div>
+                                <p class="font-semibold">มอบหมายงานแล้ว</p>
+                            </div>
+                            <div class="ml-3 h-8 border-l-2 border-primary"></div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-6 h-6 rounded-full bg-primary ring-4 ring-secondary flex items-center justify-center"><i data-lucide="user" class="w-4 h-4 text-white"></i></div>
+                                <p class="font-semibold">กำลังมุ่งหน้า</p>
+                            </div>
+                            <div class="ml-3 h-8 border-l-2 border-gray-200"></div>
+                            <div class="flex items-center gap-4 text-gray-400">
+                                <div class="w-6 h-6 rounded-full bg-gray-200"></div>
+                                <p>เริ่มงาน</p>
+                            </div>
+                            <div class="ml-3 h-8 border-l-2 border-gray-200"></div>
+                            <div class="flex items-center gap-4 text-gray-400">
+                                <div class="w-6 h-6 rounded-full bg-gray-200"></div>
+                                <p>เสร็จงาน</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-cream p-4 rounded-2xl text-center">
+                            <p class="font-semibold">ผู้ให้บริการจะไปถึงก่อนเวลานัด<br>ประมาณ 15 นาที</p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-2xl shadow-md flex justify-between items-center">
+                            <div class="flex items-center gap-4">
+                                <div class="w-16 h-16 bg-gray-200 rounded-full"></div>
+                                <div>
+                                    <p class="font-bold">พี่นิดา</p>
+                                    <div class="flex items-center gap-1 text-sm"><i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i> 4.9</div>
+                                </div>
+                            </div>
+                            <button class="text-primary font-semibold text-sm">โปรไฟล์</button>
+                        </div>
+
+                        <div class="h-40 bg-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-500">
+                            <p>แผนที่ + ETA</p>
+                            <p class="font-bold text-lg text-app-text">ถึงใน 12 นาที</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 mt-auto flex gap-4 pb-6">
+                        <button class="w-full bg-primary text-white font-bold py-4 rounded-2xl text-lg flex items-center justify-center gap-2"><i data-lucide="message-square"></i>แชท</button>
+                        <button class="w-full bg-secondary text-primary font-bold py-4 rounded-2xl text-lg flex items-center justify-center gap-2"><i data-lucide="phone"></i>โทร</button>
+                    </div>
+                `
+            },
+            // 11. Chat
+            {
+                content: `
+                    <header class="p-4 flex items-center border-b bg-white h-[68px]">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                        <div class="flex items-center gap-3 mx-auto">
+                            <div class="w-10 h-10 bg-gray-200 rounded-full"></div>
+                            <div>
+                                <h2 class="text-lg font-semibold leading-tight">พี่นิดา</h2>
+                                <p class="text-xs text-primary font-medium leading-tight">กำลังมุ่งหน้า</p>
+                            </div>
+                        </div>
+                        <i data-lucide="phone" class="w-6 h-6 text-primary"></i>
+                    </header>
+                    <div class="screen-content p-4 space-y-4">
+                        <div class="flex justify-start">
+                            <div class="bg-gray-200 p-3 rounded-2xl rounded-bl-lg max-w-xs">
+                                <p>สวัสดีค่ะคุณ Ink ตอนนี้ใกล้จะถึงแล้วนะคะ</p>
+                                <p class="text-xs text-gray-500 text-right mt-1">13:47</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <div class="bg-primary text-white p-3 rounded-2xl rounded-br-lg max-w-xs">
+                                <p>รับทราบครับ ขอบคุณครับ</p>
+                                <p class="text-xs text-secondary/70 text-right mt-1">13:48</p>
+                            </div>
+                        </div>
+                         <div class="flex justify-start">
+                            <div class="bg-gray-200 p-3 rounded-2xl rounded-bl-lg max-w-xs">
+                                <p>ถึงคอนโดแล้วค่ะ กำลังแลกบัตร</p>
+                                <p class="text-xs text-gray-500 text-right mt-1">13:50</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-auto bg-white border-t p-2 pb-4">
+                        <div class="flex gap-2 mb-2">
+                            <button class="text-sm bg-secondary text-primary py-1 px-3 rounded-full">ถึงคอนโดแล้วค่ะ</button>
+                            <button class="text-sm bg-secondary text-primary py-1 px-3 rounded-full">ขอเข้าลิฟต์บริการ</button>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button class="p-2"><i data-lucide="paperclip" class="text-gray-500"></i></button>
+                            <input type="text" placeholder="พิมพ์ข้อความ..." class="flex-grow p-3 bg-gray-100 border-none rounded-xl">
+                            <button class="p-2"><i data-lucide="send" class="text-primary"></i></button>
+                        </div>
+                    </div>
+                `
+            },
+            // 12. Bookings
+            {
+                content: `
+                    <header class="p-6 pb-2 pt-10">
+                        <h1 class="text-3xl font-bold">รายการจอง</h1>
+                    </header>
+                    <div class="px-6">
+                        <div class="flex border-b">
+                            <button class="flex-1 py-3 font-semibold text-primary border-b-2 border-primary">กำลังจะถึง</button>
+                            <button class="flex-1 py-3 font-semibold text-gray-400">ระหว่างทำ</button>
+                            <button class="flex-1 py-3 font-semibold text-gray-400">เสร็จแล้ว</button>
+                        </div>
+                    </div>
+                    <div class="screen-content p-6 pb-24 space-y-4">
+                        <div class="bg-white p-4 rounded-2xl shadow-md space-y-3">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="font-semibold">วันนี้, 14:00 น.</p>
+                                    <p class="text-sm text-gray-500">ทำความสะอาดคอนโด</p>
+                                </div>
+                                <span class="text-xs font-semibold bg-secondary text-primary py-1 px-3 rounded-full">กำลังมา</span>
+                            </div>
+                            <div class="text-sm flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-gray-400"></i><span>ไอดีโอ คอนโด, สุขุมวิท 93</span></div>
+                            <button class="w-full bg-primary text-white font-semibold py-2.5 rounded-xl mt-1">ดูรายละเอียด</button>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-md space-y-3">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="font-semibold">พ. 27 ส.ค., 10:00 น.</p>
+                                    <p class="text-sm text-gray-500">ทำความสะอาดบ้าน</p>
+                                </div>
+                                <span class="text-xs font-semibold bg-gray-200 text-gray-600 py-1 px-3 rounded-full">ยืนยันแล้ว</span>
+                            </div>
+                            <div class="text-sm flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-gray-400"></i><span>123/45 ซ.สุขุมวิท 93...</span></div>
+                            <button class="w-full bg-secondary text-primary font-semibold py-2.5 rounded-xl mt-1">ดูรายละเอียด</button>
+                        </div>
+                    </div>
+                    <!-- Tab Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 h-20 pt-2 pb-4">
+                        <div class="flex justify-around items-center h-full">
+                            <div class="text-center text-gray-400"><i data-lucide="home" class="mx-auto"></i><span class="text-xs">หน้าหลัก</span></div>
+                            <div class="text-center text-primary"><i data-lucide="calendar" class="mx-auto"></i><span class="text-xs font-bold">รายการจอง</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="message-square" class="mx-auto"></i><span class="text-xs">ข้อความ</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="wallet" class="mx-auto"></i><span class="text-xs">กระเป๋าเงิน</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="user" class="mx-auto"></i><span class="text-xs">โปรไฟล์</span></div>
+                        </div>
+                    </div>
+                `
+            },
+            // 13. Wallet
+            {
+                content: `
+                    <header class="p-6 pb-2 pt-10">
+                        <h1 class="text-3xl font-bold">กระเป๋าเงิน</h1>
+                    </header>
+                    <div class="screen-content p-6 pb-24 space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">วิธีชำระเงิน</h3>
+                            <div class="space-y-3">
+                                <div class="bg-white p-4 rounded-2xl shadow-md flex justify-between items-center">
+                                    <div class="flex items-center gap-4">
+                                        <i data-lucide="credit-card" class="text-primary"></i>
+                                        <p class="font-semibold">Visa •••• 1234</p>
+                                    </div>
+                                    <i data-lucide="more-vertical" class="text-gray-400"></i>
+                                </div>
+                                <button class="w-full flex items-center justify-center gap-2 p-4 bg-secondary text-primary font-semibold rounded-2xl">
+                                    <i data-lucide="plus"></i>
+                                    <span>เพิ่มวิธีชำระเงิน</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">คูปองของฉัน</h3>
+                             <div class="flex gap-3">
+                                <input type="text" placeholder="กรอกโค้ด" class="flex-grow p-3 bg-white border rounded-xl">
+                                <button class="bg-primary text-white font-semibold px-5 rounded-xl">แลก</button>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold mb-3">ประวัติธุรกรรม</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="font-semibold">งาน #JP-845219</p>
+                                        <p class="text-sm text-gray-400">24 ส.ค. 2025</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-semibold">-฿800.00</p>
+                                        <a href="#" class="text-xs text-primary underline">ใบเสร็จ</a>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="font-semibold">งาน #JP-841102</p>
+                                        <p class="text-sm text-gray-400">17 ส.ค. 2025</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-semibold">-฿750.00</p>
+                                        <a href="#" class="text-xs text-primary underline">ใบเสร็จ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tab Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 h-20 pt-2 pb-4">
+                        <div class="flex justify-around items-center h-full">
+                            <div class="text-center text-gray-400"><i data-lucide="home" class="mx-auto"></i><span class="text-xs">หน้าหลัก</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="calendar" class="mx-auto"></i><span class="text-xs">รายการจอง</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="message-square" class="mx-auto"></i><span class="text-xs">ข้อความ</span></div>
+                            <div class="text-center text-primary"><i data-lucide="wallet" class="mx-auto"></i><span class="text-xs font-bold">กระเป๋าเงิน</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="user" class="mx-auto"></i><span class="text-xs">โปรไฟล์</span></div>
+                        </div>
+                    </div>
+                `
+            },
+            // 14. Profile
+            {
+                content: `
+                    <header class="p-6 pb-2 pt-10">
+                        <h1 class="text-3xl font-bold">โปรไฟล์</h1>
+                    </header>
+                    <div class="screen-content p-6 pb-24 space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-20 h-20 bg-gray-200 rounded-full"></div>
+                            <div>
+                                <h2 class="text-2xl font-bold">Ink</h2>
+                                <p class="text-gray-500">081-234-5678</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-2 rounded-2xl shadow-md">
+                            <a href="#" class="flex justify-between items-center p-4">
+                                <div class="flex items-center gap-4"><i data-lucide="user-cog" class="text-primary"></i><span>แก้ไขข้อมูลบัญชี</span></div>
+                                <i data-lucide="chevron-right" class="text-gray-400"></i>
+                            </a>
+                            <hr class="mx-4">
+                            <a href="#" class="flex justify-between items-center p-4">
+                                <div class="flex items-center gap-4"><i data-lucide="map-pin" class="text-primary"></i><span>ที่อยู่ของฉัน</span></div>
+                                <i data-lucide="chevron-right" class="text-gray-400"></i>
+                            </a>
+                            <hr class="mx-4">
+                            <div class="flex justify-between items-center p-4">
+                                <div class="flex items-center gap-4"><i data-lucide="bell" class="text-primary"></i><span>การแจ้งเตือน</span></div>
+                                <input type="checkbox" class="toggle-checkbox" checked>
+                            </div>
+                        </div>
+                        <div class="bg-white p-2 rounded-2xl shadow-md">
+                            <a href="#" class="flex justify-between items-center p-4">
+                                <div class="flex items-center gap-4"><i data-lucide="globe" class="text-primary"></i><span>ภาษา</span></div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-gray-500">ไทย</span>
+                                    <i data-lucide="chevron-right" class="text-gray-400"></i>
+                                </div>
+                            </a>
+                            <hr class="mx-4">
+                            <a href="#" class="flex justify-between items-center p-4">
+                                <div class="flex items-center gap-4"><i data-lucide="help-circle" class="text-primary"></i><span>ศูนย์ช่วยเหลือ</span></div>
+                                <i data-lucide="chevron-right" class="text-gray-400"></i>
+                            </a>
+                            <hr class="mx-4">
+                            <a href="#" class="flex justify-between items-center p-4">
+                                <div class="flex items-center gap-4"><i data-lucide="shield" class="text-primary"></i><span>นโยบาย</span></div>
+                                <i data-lucide="chevron-right" class="text-gray-400"></i>
+                            </a>
+                        </div>
+                        <button class="w-full text-app-error font-semibold py-3">ออกจากระบบ</button>
+                    </div>
+                    <!-- Tab Bar -->
+                    <div class="absolute bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-gray-200 h-20 pt-2 pb-4">
+                        <div class="flex justify-around items-center h-full">
+                            <div class="text-center text-gray-400"><i data-lucide="home" class="mx-auto"></i><span class="text-xs">หน้าหลัก</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="calendar" class="mx-auto"></i><span class="text-xs">รายการจอง</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="message-square" class="mx-auto"></i><span class="text-xs">ข้อความ</span></div>
+                            <div class="text-center text-gray-400"><i data-lucide="wallet" class="mx-auto"></i><span class="text-xs">กระเป๋าเงิน</span></div>
+                            <div class="text-center text-primary"><i data-lucide="user" class="mx-auto"></i><span class="text-xs font-bold">โปรไฟล์</span></div>
+                        </div>
+                    </div>
+                `
+            },
+            // 15. Onboarding
+            {
+                content: `
+                    <div class="flex-grow flex flex-col items-center text-center p-8">
+                        <div class="w-48 h-48 bg-secondary rounded-full flex items-center justify-center my-8 mt-16">
+                            <i data-lucide="shield-check" class="w-24 h-24 text-primary"></i>
+                        </div>
+                        <div class="space-y-4">
+                            <h1 class="text-3xl font-bold">คัดกรองแม่บ้านมืออาชีพ</h1>
+                            <p class="text-gray-500 text-lg">มั่นใจได้ในคุณภาพและความปลอดภัย</p>
+                        </div>
+                        <div class="text-left space-y-5 my-10 w-full">
+                            <div class="flex items-start gap-4">
+                                <div class="w-6 h-6 bg-primary rounded-full flex-shrink-0 flex items-center justify-center mt-1"><i data-lucide="check" class="w-4 h-4 text-white"></i></div>
+                                <p class="text-lg">ตรวจสอบประวัติอาชญากรรมทุกคน</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-6 h-6 bg-primary rounded-full flex-shrink-0 flex items-center justify-center mt-1"><i data-lucide="check" class="w-4 h-4 text-white"></i></div>
+                                <p class="text-lg">ผ่านการอบรมมาตรฐานการทำความสะอาด</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-6 h-6 bg-primary rounded-full flex-shrink-0 flex items-center justify-center mt-1"><i data-lucide="check" class="w-4 h-4 text-white"></i></div>
+                                <p class="text-lg">มีประกันความเสียหายตลอดการบริการ</p>
+                            </div>
+                        </div>
+                        <div class="mt-auto w-full pb-6">
+                            <button class="w-full bg-primary text-white font-bold py-4 rounded-2xl text-lg">เริ่มใช้งาน</button>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        const ScreenWrapper = (content) => `
+            <div class="screen-container bg-app-bg text-app-text">
+                ${content}
+            </div>
+        `;
+
+        const board = document.getElementById('ui-board');
+        board.innerHTML = screens.map(screen => ScreenWrapper(screen.content)).join('');
+        lucide.createIcons();
+
+        // Add a simple toggle for the profile screen switch
+        const toggle = document.querySelector('.toggle-checkbox');
+        if (toggle) {
+            toggle.style.cssText = `
+                -webkit-appearance: none;
+                appearance: none;
+                width: 44px;
+                height: 24px;
+                background-color: #E5E7EB;
+                border-radius: 9999px;
+                position: relative;
+                cursor: pointer;
+                transition: background-color 0.2s ease-in-out;
+            `;
+            const circle = document.createElement('span');
+            circle.style.cssText = `
+                display: block;
+                width: 20px;
+                height: 20px;
+                background-color: white;
+                border-radius: 9999px;
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                transition: transform 0.2s ease-in-out;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            `;
+            toggle.appendChild(circle);
+            
+            const updateToggleState = () => {
+                if (toggle.checked) {
+                    toggle.style.backgroundColor = '#6EBB9B';
+                    circle.style.transform = 'translateX(20px)';
+                } else {
+                    toggle.style.backgroundColor = '#E5E7EB';
+                    circle.style.transform = 'translateX(0)';
+                }
+            };
+            
+            toggle.addEventListener('change', updateToggleState);
+            updateToggleState(); // Initial state
+        }
+    </script>
+</body>
+</html>
